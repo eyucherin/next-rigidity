@@ -5,9 +5,20 @@ import { H2Button } from './components/H2Button';
 import ConnectMode from './components/ConnectMode';
 import { AddMode } from './components/AddMode';
 import Intructions from './components/Intructions';
+import { Reset } from './components/Reset';
 
 
 export default function Home() {
+  const [mode,setMode] = useState("");
+
+  useEffect(() => {
+    console.log("Mode changed to:", mode);
+  }, [mode]);
+
+  function handleModeChange(data) {
+    console.log("Data received from child component:", data);
+    setMode(data);
+  }
 
   return (
    <div>
@@ -16,16 +27,19 @@ export default function Home() {
     </div>
     <div className = "flex">
 
-      <div>
+      <div className = "border w-[40%]">
       <div className = "ml-20">
-        <H1Button/>
-        <H2Button/>
+        <H1Button mode={handleModeChange} currentMode = {mode}/>
+        <H2Button mode = {handleModeChange} currentMode = {mode}/>
         <ConnectMode/>
         <AddMode/>
+        <Reset mode = {handleModeChange}/>
       </div>
         <Table />
       </div>
-      <Intructions/>
+      <div className = "border w-[60%]">
+        <Intructions/>
+      </div>
     </div>
     </div>
   )

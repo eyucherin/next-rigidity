@@ -4,7 +4,6 @@ import * as d3 from 'd3';
 
 export const Table = () => {
   const [data, setData] = useState([]);
-
   const svgRef = useRef();
 
   useEffect(() =>{
