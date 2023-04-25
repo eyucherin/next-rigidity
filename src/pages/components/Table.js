@@ -15,7 +15,7 @@ export const Table = () => {
     .attr("width", w)
     .attr("height", h)
     .style('overflow','visible')
-    .style('margin-top','100px')
+    .style('margin-top','50px')
     .style('margin-left','100px')
 
     const xScale = d3.scaleLinear()
