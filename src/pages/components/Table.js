@@ -76,15 +76,44 @@ export const Table = (props) => {
         const bounds = e.target.getBoundingClientRect();
         const x = e.clientX - bounds.left;
         const y = e.clientY - bounds.top;
-        const newDataPoint = [xScale.invert(x), yScale.invert(y)];
+        const newDataPoint = [Math.floor(xScale.invert(x)), Math.floor(yScale.invert(y))];
         setData([...data, newDataPoint]);
-        console.log(newDataPoint);
+        console.log(data);
       })
     }
     else{
+
+        let one;
+        let two;
+
         svg.on('click', (e) => {
-            console.log("Tool Mode is:", toolMode);
+            console.log("click event");
         })
+
+        d3.selectAll("circle")
+        .on("click", function() {
+            d3.select(this)
+            .attr("fill", "red");
+            if(!one){
+                one = d3.select(this).data()[0];
+            }
+            else if(!two){
+                two = d3.select(this).data()[0];
+            }
+            else{
+                one = d3.select(this).data()[0];
+                two = null;
+            }
+            if (one && two){
+                svg.append('path')
+                .datum([one,two])
+                .attr('fill', 'none')
+                .attr('stroke', 'black')
+                .attr('stroke-width', 1.5)
+                .attr('d', line);
+            }
+        });
+
     }
 
     // console.log("Tool Mode is:", toolMode);
@@ -94,7 +123,6 @@ export const Table = (props) => {
   return (
     <div>
       <svg ref={svgRef} />
-      <div>This value: {props.toolMode}</div>
     </div>
   );
 
