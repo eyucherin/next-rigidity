@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 
 
 export const Table = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([[20,30],[20,60]]);
   const svgRef = useRef();
 
   useEffect(() =>{
@@ -54,6 +54,18 @@ export const Table = () => {
     .attr('cy', (d,i) => yScale(d[1]))
     .attr('r', (d,i) => 5)
     .attr('fill', 'blue')
+
+    const line = d3.line()
+        .x(d => xScale(d[0]))
+        .y(d => yScale(d[1]));
+
+  // Draw the line
+    svg.append('path')
+        .datum([data[0],data[1]])
+        .attr('fill', 'none')
+        .attr('stroke', 'black')
+        .attr('stroke-width', 1.5)
+        .attr('d', line);
 
     svg.on('click', (e) => {
       const bounds = e.target.getBoundingClientRect();
