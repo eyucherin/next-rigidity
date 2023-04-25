@@ -94,16 +94,18 @@ export const Table = (props) => {
         .on("click", function() {
             d3.select(this)
             .attr("fill", "red");
+
+            if(one && two){
+                one = null;
+                two = null;
+            }
             if(!one){
                 one = d3.select(this).data()[0];
             }
             else if(!two){
                 two = d3.select(this).data()[0];
             }
-            else{
-                one = d3.select(this).data()[0];
-                two = null;
-            }
+
             if (one && two){
                 svg.append('path')
                 .datum([one,two])
