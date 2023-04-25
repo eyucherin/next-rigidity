@@ -41,7 +41,7 @@ export default function Home() {
         <H2Button mode = {handleModeChange} currentMode = {mode}/>
         <ConnectMode toolMode = {handleToolMode}/>
         <AddMode toolMode = {handleToolMode}/>
-        <Reset/>
+        <Reset mode = {handleModeChange}/>
       </div>
         <Table toolMode = {toolMode} />
       </div>
