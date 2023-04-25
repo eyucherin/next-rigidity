@@ -11,13 +11,21 @@ import { Reset } from './components/Reset';
 export default function Home() {
   const [mode,setMode] = useState("");
 
+  const [toolMode,setToolMode] = useState("");
+
   useEffect(() => {
-    console.log("Mode changed to:", mode);
-  }, [mode]);
+    // console.log("Mode changed to:", mode);
+    // console.log("Tool Mode changed to:", toolMode);
+  }, [mode,toolMode]);
 
   function handleModeChange(data) {
-    console.log("Data received from child component:", data);
+    // console.log("Data received from child component:", data);
     setMode(data);
+  }
+
+  let handleToolMode = (data) =>{
+    // console.log("Tool Mode is:", data);
+    setToolMode(data);
   }
 
   return (
@@ -31,11 +39,11 @@ export default function Home() {
       <div className = "ml-20">
         <H1Button mode={handleModeChange} currentMode = {mode}/>
         <H2Button mode = {handleModeChange} currentMode = {mode}/>
-        <ConnectMode/>
-        <AddMode/>
-        <Reset mode = {handleModeChange}/>
+        <ConnectMode toolMode = {handleToolMode}/>
+        <AddMode toolMode = {handleToolMode}/>
+        <Reset/>
       </div>
-        <Table />
+        <Table toolMode = {toolMode} />
       </div>
       <div className = "border w-[60%]">
         <Intructions/>
