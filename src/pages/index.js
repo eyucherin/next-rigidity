@@ -31,7 +31,7 @@ export default function Home() {
 
 
   return (
-   <div>
+   <div className = "mx-[10%]">
     <div className = "flex justify-center align-middle p-5">
         <h1 className = "text-4xl font-bold">Hennaberg Simulator</h1>
     </div>
@@ -44,12 +44,12 @@ export default function Home() {
         <div className = "ml-10 flex">
         <H1Button mode={handleModeChange} currentMode = {mode}/>
         <H2Button mode = {handleModeChange} currentMode = {mode}/>
-        <ConnectMode toolMode = {handleToolMode}/>
-        <AddMode toolMode = {handleToolMode}/>
+        <ConnectMode toolMode = {handleToolMode} currentMode = {toolMode}/>
+        <AddMode toolMode = {handleToolMode} currentMode = {toolMode}/>
         <Reset mode = {handleModeChange}/>
-        <RemoveNodeBtn toolMode = {handleToolMode}></RemoveNodeBtn>
+        <RemoveNodeBtn toolMode = {handleToolMode}  currentMode = {toolMode}></RemoveNodeBtn>
       </div>
-        <Intructions mode = {handleModeChange}/>
+        <Intructions mode = {handleModeChange} toolMode = {handleToolMode}/>
       </div>
     </div>
     </div>

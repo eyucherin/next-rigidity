@@ -18,8 +18,9 @@ export const Table = (props) => {
       .attr("width", w)
       .attr("height", h)
       .style('overflow','visible')
-      .style('margin-top','50px')
-      .style('margin-left','100px')
+      .style('margin-top','30px')
+      .style('margin-left','50px')
+      .attr('stroke-width', 1.5)
 
     const xScale = d3.scaleLinear()
       .domain([0,100])
@@ -56,19 +57,20 @@ export const Table = (props) => {
       .append('circle')
       .attr('cx', (d,i) => xScale(d[0]))
       .attr('cy', (d,i) => yScale(d[1]))
-      .attr('r', (d,i) => 5)
+      .attr('r', (d,i) => 7)
       .attr('fill', 'blue')
 
     const line = d3.line()
       .x(d => xScale(d[0]))
-      .y(d => yScale(d[1]));
+      .y(d => yScale(d[1]))
+
 
     // Draw the line
     svg.append('path')
       .datum([data[0],data[1]])
       .attr('fill', 'none')
       .attr('stroke', 'black')
-      .attr('stroke-width', 1.5)
+      .attr('stroke-width', 3)
       .attr('d', line);
 
     if (toolMode === "Add-Mode") {
@@ -111,7 +113,7 @@ export const Table = (props) => {
                 .datum([one,two])
                 .attr('fill', 'none')
                 .attr('stroke', 'black')
-                .attr('stroke-width', 6)
+                .attr('stroke-width', 3)
                 .attr('d', line);
             }
         });
