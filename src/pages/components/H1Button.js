@@ -18,7 +18,7 @@ export const H1Button = (props) => {
     }
 
   return (
-    <button className={`border w-[5vw] h-[5vh] my-5  mr-2 ${enable ? `bg-teal-400`:`bg-blue-200`}`} onClick={handleClick}>
+    <button className={`border w-[5vw] h-[5vh] mr-2 ${enable ? `bg-teal-400`:`bg-blue-200`}`} onClick={handleClick}>
         H1 Mode
     </button>
   )

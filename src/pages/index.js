@@ -6,6 +6,7 @@ import ConnectMode from './components/ConnectMode';
 import { AddMode } from './components/AddMode';
 import Intructions from './components/Intructions';
 import { Reset } from './components/Reset';
+import { RemoveNodeBtn } from './components/RemoveNodeBtn';
 
 
 export default function Home() {
@@ -24,9 +25,10 @@ export default function Home() {
   }
 
   let handleToolMode = (data) =>{
-    // console.log("Tool Mode is:", data);
+    console.log("Tool Mode is:", data);
     setToolMode(data);
   }
+
 
   return (
    <div>
@@ -36,16 +38,17 @@ export default function Home() {
     <div className = "flex">
 
       <div className = "border w-[40%]">
-      <div className = "ml-20">
+        <Table toolMode = {toolMode} />
+      </div>
+      <div className = "border w-[60%]">
+        <div className = "ml-10 flex">
         <H1Button mode={handleModeChange} currentMode = {mode}/>
         <H2Button mode = {handleModeChange} currentMode = {mode}/>
         <ConnectMode toolMode = {handleToolMode}/>
         <AddMode toolMode = {handleToolMode}/>
         <Reset mode = {handleModeChange}/>
+        <RemoveNodeBtn toolMode = {handleToolMode}></RemoveNodeBtn>
       </div>
-        <Table toolMode = {toolMode} />
-      </div>
-      <div className = "border w-[60%]">
         <Intructions mode = {handleModeChange}/>
       </div>
     </div>

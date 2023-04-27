@@ -7,7 +7,7 @@ export const Table = (props) => {
   const svgRef = useRef();
 
   useEffect(() => {
-    setToolMode(props.toolMode); // update toolMode state when toolMode prop changes
+    setToolMode(props.toolMode); 
   }, [props.toolMode]);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const Table = (props) => {
         console.log(data);
       })
     }
-    else{
+    else if (toolMode == "Connect-Mode"){
 
         let one;
         let two;
@@ -111,16 +111,21 @@ export const Table = (props) => {
                 .datum([one,two])
                 .attr('fill', 'none')
                 .attr('stroke', 'black')
-                .attr('stroke-width', 1.5)
+                .attr('stroke-width', 6)
                 .attr('d', line);
             }
         });
+    }else{
 
-    }
-
-    // console.log("Tool Mode is:", toolMode);
+      svg.on('click', (e) => {
+        d3.selectAll("path")
+        .on("click", function() {
+            d3.select(this)
+            .remove();
+        });
+    })
+  }
   }, [data, toolMode]);
-
 
   return (
     <div>

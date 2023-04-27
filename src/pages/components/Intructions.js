@@ -8,26 +8,31 @@ const Instructions = (props) => {
     {
       step: "step1",
       description: "Select any point in the graph to start",
+      mode:null,
       show: true,
     },
     {
       step: "step2",
       description: "Select two joints in the graph that do not already contain a bar",
+      mode:"Connect-Mode",
       show: false,
     },
     {
       step: "step3",
       description: "Select two other joints in the graph that do not already contain a bar",
+      mode:"Connect-Mode",
       show: false,
     },
     {
       step: "step4",
       description: "description4",
+      mode:"Connect-Mode",
       show: false,
     },
     {
       step: "step5",
       description: "description5",
+      mode:"Connect-Mode",
       show: false,
     },
   ];
