@@ -46,7 +46,7 @@ export default function Home() {
         <Table toolMode = {toolMode} />
       </div>
       <div className = "border w-[60%]">
-        <Intructions/>
+        <Intructions mode = {handleModeChange}/>
       </div>
     </div>
     </div>

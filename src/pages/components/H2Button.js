@@ -1,13 +1,13 @@
 import React,{useState, useEffect} from "react";
 
 export const H2Button = (props) => {
-  const [enable,setEnable] = useState(true);
+  const [enable,setEnable] = useState(false);
 
     useEffect(() => {
-      if(props.currentMode == "" || props.currentMode == "H2"){
-          setEnable(true);
-      }else{
+      if(props.currentMode == "" || props.currentMode == "H1"){
           setEnable(false);
+      }else{
+          setEnable(true);
       }
     });
 
@@ -17,7 +17,7 @@ export const H2Button = (props) => {
     }
 
   return (
-    <button className={`border w-[5vw] h-[5vh] mx-2 ${enable ? `bg-blue-200`:`bg-red-200`}`} onClick={handleClick}>
+    <button className={`border w-[5vw] h-[5vh] mx-2 ${enable ? `bg-teal-400`:`bg-blue-200`}`} onClick={handleClick}>
         H2 Mode
     </button>
   )
