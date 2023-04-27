@@ -94,6 +94,9 @@ export const Table = (props) => {
 
         d3.selectAll("circle")
         .on("click", function() {
+            d3.selectAll("circle")
+              .attr("fill", "blue");
+
             d3.select(this)
             .attr("fill", "red");
 
@@ -117,6 +120,7 @@ export const Table = (props) => {
                 .attr('d', line);
             }
         });
+
     }else{
 
       svg.on('click', (e) => {

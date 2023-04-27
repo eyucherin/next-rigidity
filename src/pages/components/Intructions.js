@@ -8,18 +8,24 @@ const Instructions = (props) => {
   const h1 = [
     {
       step: "step1",
-      description: "Select any point in the graph to start",
-      mode:null,
-      show: true,
+      description: "Welcome to the Hennaberg Simulator, you have chosen to lean about the H-1 Move, click next to see further steps",
+      mode:"",
+      show:true,
     },
     {
       step: "step2",
-      description: "Select two joints in the graph that do not already contain a bar",
+      description: "Select any point in the graph to start",
       mode:"Add-Mode",
-      show: false,
+      show:false,
     },
     {
       step: "step3",
+      description: "Select two joints in the graph that do not already contain a bar",
+      mode:"Connect-Mode",
+      show: false,
+    },
+    {
+      step: "step4",
       description: "Select two other joints in the graph that do not already contain a bar",
       mode:"Connect-Mode",
       show: false,
