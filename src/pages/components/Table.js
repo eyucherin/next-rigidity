@@ -85,7 +85,7 @@ export const Table = (props) => {
         .datum([data[0],data[1]])
         .attr('fill', 'none')
         .attr('stroke', 'black')
-        .attr('stroke-width', 3)
+        .attr('stroke-width', 5)
         .attr('d', line)
         .attr("id", "firstPath");
     }
@@ -144,7 +144,7 @@ export const Table = (props) => {
                   .datum([one,two])
                   .attr('fill', 'none')
                   .attr('stroke', 'black')
-                  .attr('stroke-width', 3)
+                  .attr('stroke-width', 5)
                   .attr('d', line);
                   setCount(1);
                   props.setIsNext(true);
