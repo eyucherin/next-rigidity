@@ -11,23 +11,16 @@ export const Table = (props) => {
 
   useEffect(() => {
     setToolMode(props.toolMode); 
-    console.log("Tool Mode changed to:", toolMode);
-    // console.log("NEXT MODE");
     setCount(0);
   }, [props.toolMode]);
 
-  useEffect(() =>{
-    console.log(count);
-  },[count])
 
   useEffect(() => {
-    console.log("NEXT MODE");
-    console.log(props.isNext);
   },[props.isNext])
 
   useEffect(() => {
-    const w = 400;
-    const h = 300;
+    const w = 600;
+    const h = 600;
 
     const svg = d3.select(svgRef.current)
       .attr("width", w)
@@ -63,7 +56,7 @@ export const Table = (props) => {
 
     svg.append('text')
       .attr('x',-65)
-      .attr('y',h - 150)
+      .attr('y',h - 280)
       .text('Y')
 
     svg.selectAll()
@@ -104,7 +97,6 @@ export const Table = (props) => {
             alert("Continue to next step");
           }
           setCount(1);
-          console.log("click event",count);
         })
 
     }
@@ -114,7 +106,6 @@ export const Table = (props) => {
         let two;
 
         svg.on('click', (e) => {
-            console.log("click event");
         })
 
         d3.selectAll("circle")
@@ -152,6 +143,9 @@ export const Table = (props) => {
                   two = null;
               }
             }
+            else{
+              alert("Continue to next step");
+            }
 
         });
 
@@ -171,11 +165,13 @@ export const Table = (props) => {
                 setCount(1);
                 props.setIsNext(true);
               }
+              else{
+                alert("Continue to next step");
+              }
             })
         })
   }
 
-  console.log("count",count);
   return () => {
     d3.select("svg").select("#firstPath")
       .remove();

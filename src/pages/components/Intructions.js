@@ -8,31 +8,31 @@ const Instructions = (props) => {
 
   const h1 = [
     {
-      step: "step1",
+      step: "STEP1",
       description: "Welcome to the Hennaberg Simulator, you have chosen to lean about the H-1 Move, click next to see further steps",
       mode:"",
       show:true,
     },
     {
-      step: "step2",
+      step: "STEP2",
       description: "Select any point in the graph to start",
       mode:"Add-Mode",
       show:false,
     },
     {
-      step: "step3",
+      step: "STEP3",
       description: "Select two joints in the graph that do not already contain a bar",
       mode:"Connect-Mode",
       show: false,
     },
     {
-      step: "step4",
+      step: "STEP4",
       description: "Select two other joints in the graph that do not already contain a bar",
       mode:"Connect-Mode",
       show: false,
     },
     {
-      step: "step5",
+      step: "STEP5",
       description: "FINISHED!",
       mode:"",
       show: false,
@@ -41,19 +41,19 @@ const Instructions = (props) => {
 
   const h2 = [
     {
-      step: "step1",
+      step: "STEP1",
       description: "Welcome to the Hennaberg Simulator, you have chosen to lean about the H-2 Move, click next to see further steps",
       mode:"",
       show:true,
     },
     {
-      step: "step2",
+      step: "STEP2",
       description: "Remove an edge from the framework",
       mode:"Remove-Mode",
       show:false,
     },
     {
-      step: "step3",
+      step: "STEP3",
       description: "Select any point in the graph to add a new joint",
       mode:"Add-Mode",
       show: false,
@@ -65,19 +65,19 @@ const Instructions = (props) => {
       show: false,
     },
     {
-      step: "step5",
+      step: "STEP4",
       description: "Select two other joints in the graph that do not already contain a bar",
       mode:"Connect-Mode",
       show: false,
     },
     {
-      step: "step6",
+      step: "STEP5",
       description: "Select two other joints in the graph that do not already contain a bar",
       mode:"Connect-Mode",
       show: false,
     },
     {
-      step: "step7",
+      step: "STEP6",
       description: "FINISHED!",
       mode:"",
       show: false,
@@ -85,7 +85,6 @@ const Instructions = (props) => {
   ];
 
   useEffect(() => {
-    // console.log("Mode changed to:", mode);
     if (mode === "h1") {
       setSteps(h1);
     } else if (mode === "h2") {
@@ -144,6 +143,9 @@ const Instructions = (props) => {
         setCurrentStep(currentStep + 1);
       }
     }
+    else if(!props.isNext){
+      alert("Please complete the current step");
+    }
     props.setIsNext(false);
     setCounter(counter+1);
   }
@@ -151,43 +153,51 @@ const Instructions = (props) => {
 
 
   return (
-    <div className="mx-10 my-5 border border-red-300 h-[80%]">
+    <div className="mx-10 my-5 -300 h-[85%]">
       <div className="border h-[90%]">
         <div className="border flex justify-center">
-          <div>Instructions</div>
+          <div className = "font-semibold text-lg">Instructions</div>
         </div>
 
         {mode === "" ? (
-          <div>Choose a mode</div>
-        ) : <div>current mode: {mode}</div>}
-
-        {mode === "" ? (
-          <div>
-            <button className="border" onClick={clickH1Mode}>
-              H-1 Mode
-            </button>
-            {counter > 0 ? 
-              <button className="border" onClick={clickH2Mode}>
-              H-2 Mode
-            </button>:<button className = "border" onClick={() => alert("Cannot initiate H-2 move on current framework")}>H-2 Mode</button>}
+          <div className = " mt-2 h-[90%] flex align-middle justify-center">
+            <div>
+              <div className = "ml-3 w[100%]">Choose a mode</div>
+              <div>
+                <button className="border bg-blue-200 mr-2 hover:bg-amber-200" onClick={clickH1Mode}>
+                  H-1 Mode
+                </button>
+                {counter > 0 ? 
+                  <button className="border bg-blue-200 hover:bg-amber-200" onClick={clickH2Mode}>
+                  H-2 Mode
+                </button>:<button className = "border bg-red-200" onClick={() => alert("Cannot initiate H-2 move on current framework, there must be at least 3 joints")}>H-2 Mode</button>}
           </div>
-        ) : null}
+            </div>
+          </div>
+        ) : <div className = "p-2">CURRENT MODE: {mode}</div>}
 
         <ul>
           {steps.map((item, index) =>
             item.show ? (
-              <li key={index} className="border border-black">
-                {item.step} - {item.description}
+              <li key={index} className = "my-2 px-2">
+                <div>
+                {item.step}:
+                </div>
+                <div>
+                {item.description}
+                </div>
               </li>
             ) : null
           )}
         </ul>
       </div>
 
-      <div className="border flex justify-end h-[10%]">
+      <div className="border flex justify-end h-[8%]">
         {
           currentStep == steps.length -1 ?
-          <button className="border w-[30%]" onClick={reset}>Reset</button>: <button className={`border w-[30%] ${props.isNext ? `bg-blue-300`:`bg-red-300`}`} onClick={clickNext}>Next</button>
+          <button className="border w-[30%] bg-blue-200" onClick={reset}>Reset</button>: 
+          mode == "" ?null:
+          <button className={`border w-[30%] ${props.isNext ? `bg-blue-200`:`bg-white`}`} onClick={clickNext}>Next</button>
         }
       </div>
     </div>

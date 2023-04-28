@@ -15,10 +15,10 @@ export const AddMode = (props) => {
 
 
     let clickButton = () =>{
-        props.toolMode("Add-Mode");
+        // props.toolMode("Add-Mode");
     }
   return (
-    <button className={`border w-[5vw] h-[5vh] mx-2 bg-blue-200 ${enable ? `bg-teal-400`:`bg-blue-200`}`}  onClick={clickButton}>
+    <button className={`border w-[33.3333%] h-[5vh]  ${enable ? `bg-amber-200`:`bg-blue-200`}`}  onClick={clickButton}>
         Add
     </button>
   )

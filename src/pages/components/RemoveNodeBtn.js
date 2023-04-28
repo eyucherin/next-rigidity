@@ -15,11 +15,11 @@ export const RemoveNodeBtn = (props) => {
     });
 
   let clickButton = () =>{
-      props.toolMode("Remove-Mode");
+      // props.toolMode("Remove-Mode");
   }
 
   return (
-    <button className={`border w-[5vw] h-[5vh] mx-2 bg-blue-200 ${enable ? `bg-teal-400`:`bg-blue-200`}`} onClick = {clickButton}>
+    <button className={`border w-[33.333%] h-[5vh] ${enable ? `bg-amber-200`:`bg-blue-200`}`} onClick = {clickButton}>
         Remove 
     </button>
   )

@@ -11,14 +11,14 @@ const ConnectMode = (props) => {
       else{
           setEnable(false);
       }
-    });
+    },[props.currentMode]);
 
     let clickButton = () =>{
-        props.toolMode("Connect-Mode");
+        // props.toolMode("Connect-Mode");
     }
 
   return (
-    <button className={`border w-[5vw] h-[5vh] mx-2 bg-blue-200 ${enable ? `bg-teal-400`:`bg-blue-200`}`} onClick = {clickButton}>
+    <button className={`border w-[33.3333%] h-[5vh] ${enable ? `bg-amber-200`:`bg-blue-200`}`} onClick = {clickButton}>
         Connect 
     </button>
   )

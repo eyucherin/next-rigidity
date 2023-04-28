@@ -12,12 +12,12 @@ export const H2Button = (props) => {
     });
 
     function handleClick() {
-        const data = "H2";
-        props.mode(data);
+        // const data = "H2";
+        // props.mode(data);
     }
 
   return (
-    <button className={`border w-[5vw] h-[5vh] mx-2 ${enable ? `bg-teal-400`:`bg-blue-200`}`} onClick={handleClick}>
+    <button className={`border w-[50%] h-[5vh] ${enable ? `bg-amber-200`:`bg-blue-200`}`} onClick={handleClick}>
         H2 Mode
     </button>
   )
