@@ -6,6 +6,7 @@ export const Table = (props) => {
   const [toolMode, setToolMode] = useState(props.toolMode);
   //everything has to happen ONCE!
   const [count,setCount]  = useState(0);
+  const [initialLine, setInitialLine] = useState(true);
   const svgRef = useRef();
 
   useEffect(() => {
@@ -79,16 +80,16 @@ export const Table = (props) => {
       .y(d => yScale(d[1]))
 
 
-    // Draw the line
-    //[20,30],[20,60]
-
+    if(initialLine){
       svg.append('path')
         .datum([data[0],data[1]])
         .attr('fill', 'none')
         .attr('stroke', 'black')
         .attr('stroke-width', 3)
-        .attr('d', line);
-
+        .attr('d', line)
+        .attr("id", "firstPath");
+    }
+      
     if (toolMode === "Add-Mode") {
         svg.on('click', (e) => {
           const bounds = e.target.getBoundingClientRect();
@@ -147,31 +148,41 @@ export const Table = (props) => {
                   .attr('d', line);
                   setCount(1);
                   props.setIsNext(true);
-  
                   one = null; 
                   two = null;
               }
-            
             }
 
         });
 
     }else if(toolMode == "Remove-Mode"){
 
-      svg.on('click', (e) => {
-        d3.selectAll("path")
-        .on("click", function() {
-            d3.select(this)
-            .remove();
-        });
-        setCount(1);
-        props.setIsNext(true);
-    })
+        svg.on('click', (e) => {
+
+          if(count == 0){
+            d3.selectAll("path")
+            .on("click", function() {
+              if(this.id == "firstPath"){
+                setInitialLine(false);
+              }
+              d3.select(this)
+              .remove();
+              setCount(1);
+              props.setIsNext(true);
+            });
+          }
+        })
+  }
+
+  console.log("count",count);
+  return () => {
+    d3.select("svg").select("#firstPath")
+      .remove();
   }
   }, [data,toolMode,count,props.isNext]);
 
   return (
-    <div>
+    <div className = "cursor-pointer">
       <svg ref={svgRef} />
     </div>
   );

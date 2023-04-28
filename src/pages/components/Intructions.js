@@ -114,12 +114,13 @@ const Instructions = (props) => {
   const reset = () => {
     
     const updatedSteps = [...steps];
-    for (let i = 0 ; i < updatedSteps.length ; i++) {
+    for (let i = 1 ; i < updatedSteps.length ; i++) {
       updatedSteps[i].show = false;
     }
     props.mode("");
     setMode("");
     setCurrentStep(0);
+    props.setIsNext(true);
   }
 
   const clickNext = () => {
