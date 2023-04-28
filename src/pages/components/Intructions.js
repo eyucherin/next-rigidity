@@ -4,6 +4,7 @@ const Instructions = (props) => {
   const [mode, setMode] = useState("");
   const [toolMode, setToolMode] = useState("");
   const [steps, setSteps] = useState([]);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const h1 = [
     {
@@ -31,14 +32,8 @@ const Instructions = (props) => {
       show: false,
     },
     {
-      step: "step4",
-      description: "description4",
-      mode:"Connect-Mode",
-      show: false,
-    },
-    {
       step: "step5",
-      description: "description5",
+      description: "FINISHED!",
       mode:"",
       show: false,
     },
@@ -47,39 +42,63 @@ const Instructions = (props) => {
   const h2 = [
     {
       step: "step1",
-      description: "description1",
-      show: true,
+      description: "Welcome to the Hennaberg Simulator, you have chosen to lean about the H-2 Move, click next to see further steps",
+      mode:"",
+      show:true,
     },
     {
       step: "step2",
-      description: "description2",
-      show: false,
+      description: "Remove an edge from the framework",
+      mode:"Remove-Mode",
+      show:false,
     },
     {
       step: "step3",
-      description: "description3",
+      description: "Select any point in the graph to add a new joint",
+      mode:"Add-Mode",
       show: false,
     },
     {
       step: "step4",
-      description: "description4",
+      description: "Select two other joints in the graph that do not already contain a bar",
+      mode:"Connect-Mode",
       show: false,
     },
     {
       step: "step5",
-      description: "description5",
+      description: "Select two other joints in the graph that do not already contain a bar",
+      mode:"Connect-Mode",
+      show: false,
+    },
+    {
+      step: "step6",
+      description: "Select two other joints in the graph that do not already contain a bar",
+      mode:"Connect-Mode",
+      show: false,
+    },
+    {
+      step: "step7",
+      description: "FINISHED!",
+      mode:"",
       show: false,
     },
   ];
 
   useEffect(() => {
-    console.log("Mode changed to:", mode);
+    // console.log("Mode changed to:", mode);
     if (mode === "h1") {
       setSteps(h1);
     } else if (mode === "h2") {
       setSteps(h2);
     }
+    else{
+      setSteps([]);
+    }
   }, [mode]);
+
+  // useEffect(() => {
+  //   console.log("CURRENT STEP" , currentStep);
+  // },[currentStep])
 
 
   const clickH1Mode = () => {
@@ -92,34 +111,54 @@ const Instructions = (props) => {
     props.mode("H2");
   };
 
-  const clickNext = () => {
+  const reset = () => {
+    
     const updatedSteps = [...steps];
     for (let i = 0 ; i < updatedSteps.length ; i++) {
-      if(updatedSteps[i].show === false){
-        updatedSteps[i].show = true;
-        setSteps(updatedSteps);
-        console.log(updatedSteps[i].mode);
-        if(updatedSteps[i].mode == "Add-Mode"){
-          setToolMode("Add-Mode");
-          props.toolMode("Add-Mode");
+      updatedSteps[i].show = false;
+    }
+    props.mode("");
+    setMode("");
+    setCurrentStep(0);
+  }
+
+  const clickNext = () => {
+    if(props.isNext || currentStep == 0){
+      const updatedSteps = [...steps];
+      for (let i = 0 ; i < updatedSteps.length ; i++) {
+        if(updatedSteps[i].show === false){
+          updatedSteps[i].show = true;
+          setSteps(updatedSteps);
+          if(updatedSteps[i].mode == "Add-Mode"){
+            setToolMode("Add-Mode");
+            props.toolMode("Add-Mode");
+          }
+          else if(updatedSteps[i].mode == "Connect-Mode"){
+            setToolMode("HI");
+            props.toolMode("HI");
+           
+            setToolMode("Connect-Mode");
+            props.toolMode("Connect-Mode");
+          }
+          else if(updatedSteps[i].mode == "Remove-Mode"){
+            setToolMode("Remove-Mode");
+            props.toolMode("Remove-Mode");
+          }
+          else{
+            setToolMode("");
+            props.toolMode("");
+          }
+          break;
         }
-        else if(updatedSteps[i].mode == "Connect-Mode"){
-          setToolMode("Connect-Mode");
-          props.toolMode("Connect-Mode");
-        }
-        else if(updatedSteps[i].mode == "Remove-Mode"){
-          setToolMode("Remove-Mode");
-          props.toolMode("Remove-Mode");
-        }
-        else{
-          setToolMode("");
-          props.toolMode("");
-        }
-        break;
+      }
+      if(currentStep < steps.length -1){
+        setCurrentStep(currentStep + 1);
       }
     }
-
+    props.setIsNext(false);
   }
+
+
 
   return (
     <div className="mx-10 my-5 border border-red-300 h-[80%]">
@@ -155,7 +194,10 @@ const Instructions = (props) => {
       </div>
 
       <div className="border flex justify-end h-[10%]">
-        <button className="border w-[30%]" onClick={clickNext}>Next</button>
+        {
+          currentStep == steps.length -1 ?
+          <button className="border w-[30%]" onClick={reset}>Reset</button>: <button className={`border w-[30%] ${props.isNext ? `bg-blue-300`:`bg-red-300`}`} onClick={clickNext}>Next</button>
+        }
       </div>
     </div>
   );

@@ -4,11 +4,25 @@ import * as d3 from 'd3';
 export const Table = (props) => {
   const [data, setData] = useState([[20,30],[20,60]]);
   const [toolMode, setToolMode] = useState(props.toolMode);
+  //everything has to happen ONCE!
+  const [count,setCount]  = useState(0);
   const svgRef = useRef();
 
   useEffect(() => {
     setToolMode(props.toolMode); 
+    console.log("Tool Mode changed to:", toolMode);
+    // console.log("NEXT MODE");
+    setCount(0);
   }, [props.toolMode]);
+
+  useEffect(() =>{
+    console.log(count);
+  },[count])
+
+  useEffect(() => {
+    console.log("NEXT MODE");
+    console.log(props.isNext);
+  },[props.isNext])
 
   useEffect(() => {
     const w = 400;
@@ -66,22 +80,32 @@ export const Table = (props) => {
 
 
     // Draw the line
-    svg.append('path')
-      .datum([data[0],data[1]])
-      .attr('fill', 'none')
-      .attr('stroke', 'black')
-      .attr('stroke-width', 3)
-      .attr('d', line);
+    //[20,30],[20,60]
+
+      svg.append('path')
+        .datum([data[0],data[1]])
+        .attr('fill', 'none')
+        .attr('stroke', 'black')
+        .attr('stroke-width', 3)
+        .attr('d', line);
 
     if (toolMode === "Add-Mode") {
-      svg.on('click', (e) => {
-        const bounds = e.target.getBoundingClientRect();
-        const x = e.clientX - bounds.left;
-        const y = e.clientY - bounds.top;
-        const newDataPoint = [Math.floor(xScale.invert(x)), Math.floor(yScale.invert(y))];
-        setData([...data, newDataPoint]);
-        console.log(data);
-      })
+        svg.on('click', (e) => {
+          const bounds = e.target.getBoundingClientRect();
+          const x = e.clientX - bounds.left;
+          const y = e.clientY - bounds.top;
+          const newDataPoint = [Math.floor(xScale.invert(x)), Math.floor(yScale.invert(y))];
+          if(count == 0){
+            setData([...data, newDataPoint]);
+            props.setIsNext(true);
+          }
+          else{
+            alert("Continue to next step");
+          }
+          setCount(1);
+          console.log("click event",count);
+        })
+
     }
     else if (toolMode == "Connect-Mode"){
 
@@ -97,31 +121,42 @@ export const Table = (props) => {
             d3.selectAll("circle")
               .attr("fill", "blue");
 
-            d3.select(this)
-            .attr("fill", "red");
-
-            if(one && two){
+            if(!props.isNext){
+              d3.select(this)
+              .attr("fill", "red");
+  
+              if(one && two){
                 one = null;
                 two = null;
-            }
-            if(!one){
-                one = d3.select(this).data()[0];
-            }
-            else if(!two){
-                two = d3.select(this).data()[0];
+              }
+              if(!one){
+                  one = d3.select(this).data()[0];
+                  props.setIsNext(false);
+              }
+              else if(!two){
+                  two = d3.select(this).data()[0];
+                  props.setIsNext(false);
+              }
+  
+              if (one && two){
+                  svg.append('path')
+                  .datum([one,two])
+                  .attr('fill', 'none')
+                  .attr('stroke', 'black')
+                  .attr('stroke-width', 3)
+                  .attr('d', line);
+                  setCount(1);
+                  props.setIsNext(true);
+  
+                  one = null; 
+                  two = null;
+              }
+            
             }
 
-            if (one && two){
-                svg.append('path')
-                .datum([one,two])
-                .attr('fill', 'none')
-                .attr('stroke', 'black')
-                .attr('stroke-width', 3)
-                .attr('d', line);
-            }
         });
 
-    }else{
+    }else if(toolMode == "Remove-Mode"){
 
       svg.on('click', (e) => {
         d3.selectAll("path")
@@ -129,9 +164,11 @@ export const Table = (props) => {
             d3.select(this)
             .remove();
         });
+        setCount(1);
+        props.setIsNext(true);
     })
   }
-  }, [data, toolMode]);
+  }, [data,toolMode,count,props.isNext]);
 
   return (
     <div>
