@@ -158,19 +158,20 @@ export const Table = (props) => {
     }else if(toolMode == "Remove-Mode"){
 
         svg.on('click', (e) => {
-
-          if(count == 0){
             d3.selectAll("path")
             .on("click", function() {
               if(this.id == "firstPath"){
                 setInitialLine(false);
               }
-              d3.select(this)
-              .remove();
-              setCount(1);
-              props.setIsNext(true);
-            });
-          }
+              if(count == 0 && !props.isNext){
+                d3.select(this)
+                .attr("id","lineToRemove")
+                d3.select("svg").select("#lineToRemove")
+                .remove();
+                setCount(1);
+                props.setIsNext(true);
+              }
+            })
         })
   }
 
