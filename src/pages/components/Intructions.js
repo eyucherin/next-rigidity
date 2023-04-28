@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 const Instructions = (props) => {
   const [mode, setMode] = useState("");
-  const [toolMode, setToolMode] = useState("");
   const [steps, setSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [counter,setCounter] = useState(0);
 
   const h1 = [
     {
@@ -96,10 +96,6 @@ const Instructions = (props) => {
     }
   }, [mode]);
 
-  // useEffect(() => {
-  //   console.log("CURRENT STEP" , currentStep);
-  // },[currentStep])
-
 
   const clickH1Mode = () => {
     setMode("h1");
@@ -112,7 +108,6 @@ const Instructions = (props) => {
   };
 
   const reset = () => {
-    
     const updatedSteps = [...steps];
     for (let i = 1 ; i < updatedSteps.length ; i++) {
       updatedSteps[i].show = false;
@@ -131,22 +126,15 @@ const Instructions = (props) => {
           updatedSteps[i].show = true;
           setSteps(updatedSteps);
           if(updatedSteps[i].mode == "Add-Mode"){
-            setToolMode("Add-Mode");
             props.toolMode("Add-Mode");
           }
           else if(updatedSteps[i].mode == "Connect-Mode"){
-            setToolMode("HI");
-            props.toolMode("HI");
-           
-            setToolMode("Connect-Mode");
             props.toolMode("Connect-Mode");
           }
           else if(updatedSteps[i].mode == "Remove-Mode"){
-            setToolMode("Remove-Mode");
             props.toolMode("Remove-Mode");
           }
           else{
-            setToolMode("");
             props.toolMode("");
           }
           break;
@@ -157,6 +145,7 @@ const Instructions = (props) => {
       }
     }
     props.setIsNext(false);
+    setCounter(counter+1);
   }
 
 
@@ -177,9 +166,10 @@ const Instructions = (props) => {
             <button className="border" onClick={clickH1Mode}>
               H-1 Mode
             </button>
-            <button className="border" onClick={clickH2Mode}>
+            {counter > 0 ? 
+              <button className="border" onClick={clickH2Mode}>
               H-2 Mode
-            </button>
+            </button>:<button className = "border" onClick={() => alert("Cannot initiate H-2 move on current framework")}>H-2 Mode</button>}
           </div>
         ) : null}
 
