@@ -5,8 +5,9 @@ import { H2Button } from './components/H2Button';
 import ConnectMode from './components/ConnectMode';
 import { AddMode } from './components/AddMode';
 import Intructions from './components/Intructions';
-import { Reset } from './components/Reset';
 import { RemoveNodeBtn } from './components/RemoveNodeBtn';
+import Head from 'next/head'
+
 
 
 export default function Home() {
@@ -30,6 +31,11 @@ export default function Home() {
 
 
   return (
+    <>
+     <Head>
+      <title>Henneberg Simulator</title>
+      <meta name='description' content='Simulator program for Henneberg Moves in Rigidity Theory' />
+    </Head>
    <div className = "mx-[10%]">
     <div className = "flex justify-center align-middle p-5">
         <h1 className = "text-6xl font-semibold">Henneberg Simulator</h1>
@@ -60,6 +66,7 @@ export default function Home() {
     <a  className = "hover:text-blue-600"href = "https://github.com/eyucherin/next-rigidity" target="_blank" >Source Code</a>
     <div>created by Elizabeth Yu</div>
     </div>
+    </>
   )
 }
 
