@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Reset = (props) => {
+const Reset = (props) => {
 
     function handleClick() {
         const data = "";
@@ -13,3 +13,5 @@ export const Reset = (props) => {
     </button>
   )
 }
+
+export default Reset;

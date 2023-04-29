@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 
-export const AddMode = (props) => {
+const AddMode = (props) => {
 
   const [enable,setEnable] = useState(true);
 
@@ -23,3 +23,5 @@ export const AddMode = (props) => {
     </button>
   )
 }
+
+export default AddMode;

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 
-export const H1Button = (props) => {
+const H1Button = (props) => {
     const [enable,setEnable] = useState(false);
 
 
@@ -23,3 +23,5 @@ export const H1Button = (props) => {
     </button>
   )
 }
+
+export default H1Button;

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 
-export const RemoveNodeBtn = (props) => {
+const RemoveNodeBtn = (props) => {
 
 
   const [enable,setEnable] = useState(true);
@@ -24,3 +24,5 @@ export const RemoveNodeBtn = (props) => {
     </button>
   )
 }
+
+export default RemoveNodeBtn;

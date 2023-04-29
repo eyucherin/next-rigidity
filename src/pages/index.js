@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useRef } from 'react';
-import { Table } from './components/Table';
-import { H1Button } from './components/H1Button';
-import { H2Button } from './components/H2Button';
+import Table from './components/Table';
+import  H1Button from './components/H1Button';
+import H2Button from './components/H2Button';
 import ConnectMode from './components/ConnectMode';
-import { AddMode } from './components/AddMode';
+import  AddMode  from './components/AddMode';
 import Intructions from './components/Intructions';
-import { RemoveNodeBtn } from './components/RemoveNodeBtn';
+import RemoveNodeBtn from './components/RemoveNodeBtn';
 import Head from 'next/head'
 
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-export const Table = (props) => {
+const Table = (props) => {
   const [data, setData] = useState([[20,30],[20,60]]);
   const [toolMode, setToolMode] = useState(props.toolMode);
   //everything has to happen ONCE!
@@ -185,3 +185,5 @@ export const Table = (props) => {
   );
 
 }
+
+export default Table;
