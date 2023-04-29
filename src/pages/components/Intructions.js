@@ -164,17 +164,18 @@ const Instructions = (props) => {
             <div>
               <div className = "ml-3 w[100%]">Choose a mode</div>
               <div>
-                <button className="border bg-blue-200 mr-2 hover:bg-amber-200" onClick={clickH1Mode}>
+                <button className="border p-2 bg-blue-200 mr-2 hover:bg-amber-200" onClick={clickH1Mode}>
                   H-1 Mode
                 </button>
+                
                 {counter > 0 ? 
-                  <button className="border bg-blue-200 hover:bg-amber-200" onClick={clickH2Mode}>
+                  <button className="border bg-blue-200 hover:bg-amber-200 p-2" onClick={clickH2Mode}>
                   H-2 Mode
-                </button>:<button className = "border bg-red-200" onClick={() => alert("Cannot initiate H-2 move on current framework, there must be at least 3 joints")}>H-2 Mode</button>}
+                </button>:<button className = "border bg-red-200 p-2" onClick={() => alert("Cannot initiate H-2 move on current framework, there must be at least 3 joints")}>H-2 Mode</button>}
           </div>
             </div>
           </div>
-        ) : <div className = "p-2">CURRENT MODE: {mode}</div>}
+        ) : null}
 
         <ul>
           {steps.map((item, index) =>
@@ -197,7 +198,7 @@ const Instructions = (props) => {
           currentStep == steps.length -1 ?
           <button className="border w-[30%] bg-blue-200" onClick={reset}>Reset</button>: 
           mode == "" ?null:
-          <button className={`border w-[30%] ${props.isNext ? `bg-blue-200`:`bg-white`}`} onClick={clickNext}>Next</button>
+          <button className={`border w-[30%] ${props.isNext ? `bg-blue-200`:`bg-red-100`}`} onClick={clickNext}>Next</button>
         }
       </div>
     </div>

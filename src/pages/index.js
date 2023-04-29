@@ -32,7 +32,7 @@ export default function Home() {
   return (
    <div className = "mx-[10%]">
     <div className = "flex justify-center align-middle p-5">
-        <h1 className = "text-6xl font-bold">Henneberg Simulator</h1>
+        <h1 className = "text-6xl font-semibold">Henneberg Simulator</h1>
     </div>
     <hr></hr>
     <div className = "flex my-[1%] h-[80vh]">
@@ -40,7 +40,7 @@ export default function Home() {
       <div className = "w-[55%]">
         <Table toolMode = {toolMode} isNext = {isNext} setIsNext = {handleNext}/>
       </div>
-      <div className = "w-[45%]">
+      <div className = "w-[45%] bg-yellow-50">
         <div className>
           <div className  = "flex mx-10 border mb-2">
             <H1Button mode={handleModeChange} currentMode = {mode}/>
@@ -57,7 +57,7 @@ export default function Home() {
       </div>
     </div>
     <hr></hr>
-    <a href = "https://github.com/eyucherin/next-rigidity" target="_blank">Source Code</a>
+    <a  className = "hover:text-blue-600"href = "https://github.com/eyucherin/next-rigidity" target="_blank" >Source Code</a>
     <div>created by Elizabeth Yu</div>
     </div>
   )
