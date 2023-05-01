@@ -61,7 +61,7 @@ const Table = (props) => {
       .attr('y',h - 280)
       .text('Y')
 
-    svg.selectAll()
+    let circles = svg.selectAll()
       .data(data)
       .enter()
       .append('circle')
@@ -194,8 +194,6 @@ const Table = (props) => {
             .attr("fill", "blue");
 
           if(!props.isNext){
-            d3.select(this)
-            .attr("fill", "red");
 
             if(one){
               one = null;
@@ -270,7 +268,7 @@ const Table = (props) => {
                 console.log(lines[i].path == this.outerHTML, lines[i].path, this.outerHTML);
                 if(lines[i].path == this.outerHTML){
                   setLinePoint([lines[i].start,lines[i].end]);
-                  console.log("THE LINES!!!",lines);
+                  console.log("CIRCLES",circles);
                 }
                 else{
                   console.log("NOT FOUND!!!!!!!!!!!!!!!");

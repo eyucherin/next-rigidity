@@ -15,13 +15,13 @@ const Instructions = (props) => {
     },
     {
       step: "STEP2",
-      description: "Select any point in the graph to start",
+      description: "Select any point in the window to start",
       mode:"Add-Mode",
       show:false,
     },
     {
       step: "STEP3",
-      description: "Select two joints in the graph that do not already contain a bar",
+      description: "Select TWO joints in the window that do not already contain a bar",
       mode:"Connect-Mode",
       show: false,
     },
@@ -54,7 +54,7 @@ const Instructions = (props) => {
     },
     {
       step: "STEP4",
-      description: "Select two other joints in the graph that do not already contain a bar",
+      description: "Select ONE joint in the window that does not already contain a bar and was not a joint that connected the bar that was removed",
       mode:"Connect-Mode-1",
       show: false,
     },
@@ -138,7 +138,7 @@ const Instructions = (props) => {
 
 
   return (
-    <div className="mx-10 my-5 -300 h-[85%]">
+    <div className="mx-10 my-5 -300 h-[80%]">
       <div className="border h-[90%]">
         <div className="border flex justify-center">
           <div className = "font-semibold text-lg">Instructions</div>

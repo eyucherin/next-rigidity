@@ -19,7 +19,7 @@ const RemoveNodeBtn = (props) => {
   }
 
   return (
-    <button className={`border w-[33.333%] h-[5vh] ${enable ? `bg-amber-200`:`bg-blue-200`}`} onClick = {clickButton}>
+    <button className={`border w-[33.333%] h-[6vh] ${enable ? `bg-amber-200`:`bg-blue-200`}`} onClick = {clickButton}>
         Remove 
     </button>
   )
