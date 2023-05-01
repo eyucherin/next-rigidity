@@ -7,6 +7,8 @@ const Table = (props) => {
   //everything has to happen ONCE!
   const [count,setCount]  = useState(0);
   const [initialLine, setInitialLine] = useState(true);
+  const [linePoint, setLinePoint] = useState([]);
+  const [lines, setLines] = useState([]);
   const svgRef = useRef();
 
   useEffect(() => {
@@ -59,7 +61,7 @@ const Table = (props) => {
       .attr('y',h - 280)
       .text('Y')
 
-    let circles = svg.selectAll()
+    svg.selectAll()
       .data(data)
       .enter()
       .append('circle')
@@ -74,7 +76,7 @@ const Table = (props) => {
 
 
     if(initialLine){
-      svg.append('path')
+      let path1 = svg.append('path')
         .datum([data[0],data[1]])
         .attr('fill', 'none')
         .attr('stroke', 'black')
@@ -82,7 +84,6 @@ const Table = (props) => {
         .attr('d', line)
         .attr("id", "firstPath");
     }
-      
     if (toolMode === "Add-Mode") {
         svg.on('click', (e) => {
           const bounds = e.target.getBoundingClientRect();
@@ -90,6 +91,7 @@ const Table = (props) => {
           const y = e.clientY - bounds.top;
           const newDataPoint = [Math.floor(xScale.invert(x)), Math.floor(yScale.invert(y))];
           if(count == 0){
+            console.log("THE NEW POINT",newDataPoint);
             setData([...data, newDataPoint]);
             props.setIsNext(true);
           }
@@ -98,7 +100,7 @@ const Table = (props) => {
           }
           setCount(1);
         })
-    }
+  }
     else if (toolMode == "Connect-Mode"){
 
         let one;
@@ -122,24 +124,56 @@ const Table = (props) => {
               }
               if(!one){
                   one = d3.select(this).data()[0];
+                  if(one == data[data.length-1]){
+                    one = null;
+                    two = null;
+                    alert("Cannot connect to the last point");
+                  }
                   props.setIsNext(false);
               }
               else if(!two){
                   two = d3.select(this).data()[0];
+                  if(two == data[data.length-1]){
+                    two = null;
+                    one = null
+                    alert("Cannot connect to the last point");
+                  }
                   props.setIsNext(false);
               }
   
               if (one && two){
                   console.log(one,two);
-                  svg.append('path')
-                  .datum([one,two])
+
+                  let path1 = svg.append('path')
+                  .datum([one,data[data.length-1]])
                   .attr('fill', 'none')
                   .attr('stroke', 'black')
                   .attr('stroke-width', 5)
                   .attr('d', line);
+
+                  let path2 = svg.append('path')
+                  .datum([data[data.length-1],two])
+                  .attr('fill', 'none')
+                  .attr('stroke', 'black')
+                  .attr('stroke-width', 5)
+                  .attr('d', line);
+
+                  let path1HTML = path1.node().outerHTML;
+                  let path2HTML = path2.node().outerHTML;
+
+                  setLines([...lines, {
+                    "path": path1HTML,
+                    "start": one,
+                    "end": data[data.length - 1]
+                  }, {
+                    "path": path2HTML,
+                    "start": two,
+                    "end": data[data.length - 1]
+                  }]);
+
                   setCount(1);
                   props.setIsNext(true);
-                  one = null; 
+                  one = null;
                   two = null;
               }
             }
@@ -149,52 +183,100 @@ const Table = (props) => {
 
         });
     }else if(toolMode == "Connect-Mode-1"){
-      let val = null;
+      let one;
+
       svg.on('click', (e) => {
       })
 
       d3.selectAll("circle")
-      .on("click",function(){
+      .on("click", function() {
+          d3.selectAll("circle")
+            .attr("fill", "blue");
 
-        d3.selectAll("circle")
-          .attr("fill", "blue");
+          if(!props.isNext){
+            d3.select(this)
+            .attr("fill", "red");
 
-        if(!props.isNext){
-          d3.select(this)
-          .attr("fill", "red");
+            if(one){
+              one = null;
+            }
 
-          if(!val && data[data.length-1] != d3.select(this).data()[0]){
-            console.log("NOT VAL");
-            val = d3.select(this).data()[0];
-            props.setIsNext(false);
+            if(!one){
+                one = d3.select(this).data()[0];
+                if(one == data[data.length-1] || one == linePoint[0] || one == linePoint[1]){
+                  one = null;
+                  alert("Cannot connect to the last point");
+                }
+                props.setIsNext(false);
+            }
+
+            if (one){
+                let path1 = svg.append('path')
+                .datum([one,data[data.length-1]])
+                .attr('fill', 'none')
+                .attr('stroke', 'black')
+                .attr('stroke-width', 5)
+                .attr('d', line);
+
+                let path2 = svg.append('path')
+                .datum([data[data.length-1],linePoint[0]])
+                .attr('fill', 'none')
+                .attr('stroke', 'black')
+                .attr('stroke-width', 5)
+                .attr('d', line);
+
+                let path3 = svg.append('path')
+                .datum([data[data.length-1],linePoint[1]])
+                .attr('fill', 'none')
+                .attr('stroke', 'black')
+                .attr('stroke-width', 5)
+                .attr('d', line);
+
+                let path1HTML = path1.node().outerHTML;
+                let path2HTML = path2.node().outerHTML;
+                let path3HTML = path3.node().outerHTML;
+
+                setLines([...lines, {
+                  "path": path1HTML,
+                  "start": one,
+                  "end": data[data.length - 1]
+                }, {
+                  "path": path2HTML,
+                  "start": linePoint[0],
+                  "end": data[data.length - 1]
+                },{
+                  "path": path3HTML,
+                  "start": linePoint[1],
+                  "end": data[data.length - 1]
+                }
+              ]);
+
+                setCount(1);
+                props.setIsNext(true);
+                one = null;
+            }
           }
-          else if(data[data.length-1] == val){
-            val = null;
-            alert("Cannot choose last chosen point");
+          else{
+            alert("Continue to next step");
           }
 
-          if(val && data[data.length-1] != val){
-
-            svg.append('path')
-            .datum([data[data.length-1],val])
-            .attr('fill', 'none')
-            .attr('stroke', 'black')
-            .attr('stroke-width', 5)
-            .attr('d',line);
-  
-            setCount(1);
-            props.setIsNext(true);
-          }
-        }
-        else{
-          alert("Continue to next step");
-        }
-      })
+      });
     }else if(toolMode == "Remove-Mode"){
 
         svg.on('click', (e) => {
             d3.selectAll("path")
             .on("click", function() {
+              for (let i = 0; i < lines.length; i++) {
+                console.log(lines[i].path == this.outerHTML, lines[i].path, this.outerHTML);
+                if(lines[i].path == this.outerHTML){
+                  setLinePoint([lines[i].start,lines[i].end]);
+                  console.log("THE LINES!!!",lines);
+                }
+                else{
+                  console.log("NOT FOUND!!!!!!!!!!!!!!!");
+                }
+              }
+
               if(this.id == "firstPath"){
                 setInitialLine(false);
               }
@@ -217,7 +299,11 @@ const Table = (props) => {
     d3.select("svg").select("#firstPath")
       .remove();
   }
-  }, [data,toolMode,count,props.isNext]);
+  }, [data,toolMode,count,props.isNext,lines]);
+
+  useEffect(() =>{
+    console.log("THE LINES",lines);
+  },[lines])
 
   return (
     <div className = "cursor-pointer">

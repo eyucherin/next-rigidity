@@ -22,13 +22,7 @@ const Instructions = (props) => {
     {
       step: "STEP3",
       description: "Select two joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode-1",
-      show: false,
-    },
-    {
-      step: "STEP4",
-      description: "Select two other joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode-1",
+      mode:"Connect-Mode",
       show: false,
     },
     {
@@ -54,14 +48,8 @@ const Instructions = (props) => {
     },
     {
       step: "STEP3",
-      description: "Select any point in the graph to add a new joint",
+      description: "Select any point in the window to add a new joint",
       mode:"Add-Mode",
-      show: false,
-    },
-    {
-      step: "step4",
-      description: "Select two other joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode-1",
       show: false,
     },
     {
@@ -72,12 +60,6 @@ const Instructions = (props) => {
     },
     {
       step: "STEP5",
-      description: "Select two other joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode-1",
-      show: false,
-    },
-    {
-      step: "STEP6",
       description: "FINISHED!",
       mode:"",
       show: false,
@@ -170,8 +152,7 @@ const Instructions = (props) => {
                 <button className="border p-2 bg-blue-200 mr-2 hover:bg-amber-200" onClick={clickH1Mode}>
                   H-1 Mode
                 </button>
-                
-                {counter > 0 ? 
+                {counter > 0 ?
                   <button className="border bg-blue-200 hover:bg-amber-200 p-2" onClick={clickH2Mode}>
                   H-2 Mode
                 </button>:<button className = "border bg-red-200 p-2" onClick={() => alert("Cannot initiate H-2 move on current framework, there must be at least 3 joints")}>H-2 Mode</button>}
