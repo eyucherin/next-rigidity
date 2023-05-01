@@ -59,7 +59,7 @@ const Table = (props) => {
       .attr('y',h - 280)
       .text('Y')
 
-    svg.selectAll()
+    let circles = svg.selectAll()
       .data(data)
       .enter()
       .append('circle')
@@ -98,7 +98,6 @@ const Table = (props) => {
           }
           setCount(1);
         })
-
     }
     else if (toolMode == "Connect-Mode"){
 
@@ -131,6 +130,7 @@ const Table = (props) => {
               }
   
               if (one && two){
+                  console.log(one,two);
                   svg.append('path')
                   .datum([one,two])
                   .attr('fill', 'none')
@@ -148,7 +148,48 @@ const Table = (props) => {
             }
 
         });
+    }else if(toolMode == "Connect-Mode-1"){
+      let val = null;
+      svg.on('click', (e) => {
+      })
 
+      d3.selectAll("circle")
+      .on("click",function(){
+
+        d3.selectAll("circle")
+          .attr("fill", "blue");
+
+        if(!props.isNext){
+          d3.select(this)
+          .attr("fill", "red");
+
+          if(!val && data[data.length-1] != d3.select(this).data()[0]){
+            console.log("NOT VAL");
+            val = d3.select(this).data()[0];
+            props.setIsNext(false);
+          }
+          else if(data[data.length-1] == val){
+            val = null;
+            alert("Cannot choose last chosen point");
+          }
+
+          if(val && data[data.length-1] != val){
+
+            svg.append('path')
+            .datum([data[data.length-1],val])
+            .attr('fill', 'none')
+            .attr('stroke', 'black')
+            .attr('stroke-width', 5)
+            .attr('d',line);
+  
+            setCount(1);
+            props.setIsNext(true);
+          }
+        }
+        else{
+          alert("Continue to next step");
+        }
+      })
     }else if(toolMode == "Remove-Mode"){
 
         svg.on('click', (e) => {

@@ -17,6 +17,10 @@ export default function Home() {
 
   const [isNext , setIsNext] = useState(true);
 
+  useEffect(() => {
+    console.log("toolMode mode is",toolMode);
+  },[toolMode])
+
   function handleModeChange(data) {
     setMode(data);
   }

@@ -22,13 +22,13 @@ const Instructions = (props) => {
     {
       step: "STEP3",
       description: "Select two joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode",
+      mode:"Connect-Mode-1",
       show: false,
     },
     {
       step: "STEP4",
       description: "Select two other joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode",
+      mode:"Connect-Mode-1",
       show: false,
     },
     {
@@ -61,19 +61,19 @@ const Instructions = (props) => {
     {
       step: "step4",
       description: "Select two other joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode",
+      mode:"Connect-Mode-1",
       show: false,
     },
     {
       step: "STEP4",
       description: "Select two other joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode",
+      mode:"Connect-Mode-1",
       show: false,
     },
     {
       step: "STEP5",
       description: "Select two other joints in the graph that do not already contain a bar",
-      mode:"Connect-Mode",
+      mode:"Connect-Mode-1",
       show: false,
     },
     {
@@ -129,6 +129,9 @@ const Instructions = (props) => {
           }
           else if(updatedSteps[i].mode == "Connect-Mode"){
             props.toolMode("Connect-Mode");
+          }
+          else if(updatedSteps[i].mode == "Connect-Mode-1"){
+            props.toolMode("Connect-Mode-1");
           }
           else if(updatedSteps[i].mode == "Remove-Mode"){
             props.toolMode("Remove-Mode");
