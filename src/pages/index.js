@@ -52,7 +52,7 @@ export default function Home() {
       </div>
       <div className = "w-[45%] bg-yellow-50">
         <div>
-          <div className  = "flex mx-10 border mb-2">
+          <div className  = "flex mx-10 border mb-2 mt-3">
             <H1Button mode={handleModeChange} currentMode = {mode}/>
             <H2Button mode = {handleModeChange} currentMode = {mode}/>
           </div>
