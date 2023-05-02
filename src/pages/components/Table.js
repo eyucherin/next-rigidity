@@ -278,7 +278,7 @@ const Table = (props) => {
               if(this.id == "firstPath"){
                 setInitialLine(false);
               }
-              if(count == 0 && !props.isNext){
+              if(count == 0 || !props.isNext){
                 d3.select(this)
                 .attr("id","lineToRemove")
                 d3.select("svg").select("#lineToRemove")
