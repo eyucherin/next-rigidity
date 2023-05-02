@@ -9,19 +9,19 @@ const Instructions = (props) => {
   const h1 = [
     {
       step: "STEP1",
-      description: "Welcome to the Hennaberg Simulator, you have chosen to lean about the H-1 Move, click next to see further steps",
+      description: "Welcome to the Henneberg Simulator, you have chosen to lean about the H-1 Move, click next to see further steps",
       mode:"",
       show:true,
     },
     {
       step: "STEP2",
-      description: "Select any point in the window to start",
+      description: "Select any point in the window",
       mode:"Add-Mode",
       show:false,
     },
     {
       step: "STEP3",
-      description: "Select TWO joints in the window that do not already contain a bar",
+      description: "Select TWO joints in the window that you would like to connect with the joint that was just added. It cannot be the joint that was just added (the joint with deg(0)) ",
       mode:"Connect-Mode",
       show: false,
     },
@@ -36,7 +36,7 @@ const Instructions = (props) => {
   const h2 = [
     {
       step: "STEP1",
-      description: "Welcome to the Hennaberg Simulator, you have chosen to lean about the H-2 Move, click next to see further steps",
+      description: "Welcome to the Henneberg Simulator, you have chosen to lean about the H-2 Move, click next to see further steps",
       mode:"",
       show:true,
     },
@@ -54,7 +54,7 @@ const Instructions = (props) => {
     },
     {
       step: "STEP4",
-      description: "Select ONE joint in the window that does not already contain a bar and was not a joint that connected the bar that was removed",
+      description: "Select ONE joint in the window. It cannot be the joint that was just added(the joint with deg(0)) and it cannot be the joint that connected the bar that was just removed",
       mode:"Connect-Mode-1",
       show: false,
     },

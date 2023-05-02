@@ -203,7 +203,7 @@ const Table = (props) => {
                 one = d3.select(this).data()[0];
                 if(one == data[data.length-1] || one == linePoint[0] || one == linePoint[1]){
                   one = null;
-                  alert("Cannot connect to the last point");
+                  alert("1.Cannot connect to the point that was just added \n 2.Cannot be a point that connected the bar that was just removed");
                 }
                 props.setIsNext(false);
             }
